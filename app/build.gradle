@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+    compileSdkVersion build_versions.compile_sdk
+
+    defaultConfig {
+        applicationId "com.example.navigationkotlinsample"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation deps.kotlin.stdlib
+    implementation deps.app_compat
+    implementation deps.material
+    implementation deps.constraint_layout
+    implementation deps.core_ktx
+
+    implementation deps.lifecycle.viewmodel_ktx
+
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.runtime_ktx
+    implementation deps.fragment.runtime_ktx
+    // "androidx.fragment:fragment-testing" must be scoped to all sourcesets.
+    implementation(deps.fragment.testing)
+
+    // Espresso and UI Testing
+    androidTestImplementation deps.atsl.ext_junit
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.espresso.contrib
+    androidTestImplementation deps.espresso.intents
+   // androidTestImplementation deps.navigation.testing
+    androidTestImplementation deps.truth
+
+    // Host-side tests
+    testImplementation deps.atsl.ext_junit
+    testImplementation deps.robolectric
+    // Espresso API running in Robolectric
+    testImplementation deps.espresso.core
+    testImplementation deps.espresso.contrib
+    testImplementation deps.espresso.intents
+   // testImplementation deps.navigation.testing
+    testImplementation deps.truth
+}
